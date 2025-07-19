@@ -1,0 +1,10 @@
+[package]
+name = "code_solver_rust_internal"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+deepseek_rs = "0.1.2"
+dotenvy = "0.15.7"
+screenshots = "0.8.10"
+tokio = "1.46.1"
