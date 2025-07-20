@@ -2,24 +2,24 @@ use deepseek_rs::{
     DeepSeekClient,
     client::chat_completions::request::{Message, Model, RequestBody},
 };
-use screenshots::Screen;
+use image::{DynamicImage, RgbaImage};
 use std::env;
 use std::error::Error;
+use std::os;
+use win_screenshot::prelude::*;
 
 fn takescreenshot() {
-    let screens = Screen::all().unwrap();
-    for s in screens {
-        println!("capturing {s:?}");
-        let mut image = s.capture_area(300, 300, 1920, 1200).unwrap();
-        image.save(format!("{}.png", s.display_info.id)).unwrap();
-    }
+    let buf = capture_display().unwrap();
+    let img =
+        DynamicImage::ImageRgba8(RgbaImage::from_raw(buf.width, buf.height, buf.pixels).unwrap());
+    img.to_rgb8().save("screenshot.png").unwrap();
 }
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
     dotenvy::dotenv()?;
-    takescreenshot();
     let client = DeepSeekClient::default()?;
+    takescreenshot();
     let question = String::from("Description:
 
 Given an array of integers nums and an integer k, return the length of the longest contiguous subarray whose sum equals k.

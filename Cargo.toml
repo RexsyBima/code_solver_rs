@@ -3,8 +3,12 @@ name = "code_solver_rust_internal"
 version = "0.1.0"
 edition = "2024"
 
+[build]
+target = "x86_64-pc-windows-gnu"
+
 [dependencies]
 deepseek_rs = "0.1.2"
 dotenvy = "0.15.7"
-screenshots = "0.8.10"
+image = "0.25.6"
 tokio = "1.46.1"
+win-screenshot = "4.0.13"
